@@ -2,7 +2,10 @@ package pro.sky.java.course2.skyprospringexception.controller;
 
 import org.springframework.web.bind.annotation.*;
 import pro.sky.java.course2.skyprospringexception.exception.BadParamException;
-import pro.sky.java.course2.skyprospringexception.service.EmployeeServiceImpl;
+import pro.sky.java.course2.skyprospringexception.model.Employee;
+import pro.sky.java.course2.skyprospringexception.service.impl.EmployeeServiceImpl;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
@@ -40,5 +43,10 @@ public class EmployeeController {
             throw new BadParamException();
         }
         return employeeService.findEmployee(firstName, lastName)  + " found successfully.";
+    }
+
+    @GetMapping("/list")
+    public List<Employee> printList(){
+        return employeeService.getEmployeesList();
     }
 }
