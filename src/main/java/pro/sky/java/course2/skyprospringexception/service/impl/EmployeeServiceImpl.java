@@ -51,9 +51,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     private Employee createEmployee(String firstName, String lastName){
-        Employee employee = new Employee();
-        employee.setFirstName(firstName);
-        employee.setLastName(lastName);
-        return employee;
+        return new Employee(firstName, lastName);
     }
 }
