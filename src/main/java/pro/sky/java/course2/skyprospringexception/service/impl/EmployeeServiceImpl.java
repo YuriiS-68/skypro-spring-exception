@@ -25,16 +25,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void delEmployee(String firstName, String lastName) {
-        boolean isExist = false;
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i) != null
-                    && employees.get(i).getFirstName().equals(firstName)
-                    && employees.get(i).getLastName().equals(lastName)){
-                employees.remove(employees.get(i));
-                isExist = true;
-            }
-        }
-        if (!isExist){
+        Employee newEmployee = createEmployee(firstName, lastName);
+        if (!employees.remove(newEmployee)){
             throw new NoExistEmployeeException();
         }
     }
@@ -60,10 +52,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private Employee createEmployee(String firstName, String lastName){
         Employee employee = new Employee();
-        if (firstName != null && lastName != null){
-            employee.setFirstName(firstName);
-            employee.setLastName(lastName);
-        }
+        employee.setFirstName(firstName);
+        employee.setLastName(lastName);
         return employee;
     }
 }
