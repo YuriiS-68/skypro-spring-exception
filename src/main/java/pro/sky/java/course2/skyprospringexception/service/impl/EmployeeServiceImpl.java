@@ -6,6 +6,7 @@ import pro.sky.java.course2.skyprospringexception.exception.NoExistEmployeeExcep
 import pro.sky.java.course2.skyprospringexception.model.Employee;
 import pro.sky.java.course2.skyprospringexception.service.EmployeeService;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Map<String, Employee> getEmployeesList() {
-        return employees;
+    public Collection<Employee> getEmployeesList() {
+        return employees.values();
     }
 }
