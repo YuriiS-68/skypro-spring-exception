@@ -40,8 +40,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
-        if (employees.containsKey(getKey(firstName, lastName))){
-            return employees.get(getKey(firstName, lastName));
+        Employee foundEmployee = employees.get(getKey(firstName, lastName));
+
+        if (foundEmployee != null){
+            return foundEmployee;
         } else {
             throw new NoExistEmployeeException();
         }
