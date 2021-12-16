@@ -5,7 +5,7 @@ import pro.sky.java.course2.skyprospringexception.exception.BadParamException;
 import pro.sky.java.course2.skyprospringexception.model.Employee;
 import pro.sky.java.course2.skyprospringexception.service.impl.EmployeeServiceImpl;
 
-import java.util.List;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/employee")
@@ -46,7 +46,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/list")
-    public List<Employee> printList(){
+    public Collection<Employee> printList(){
         return employeeService.getEmployeesList();
     }
 }
