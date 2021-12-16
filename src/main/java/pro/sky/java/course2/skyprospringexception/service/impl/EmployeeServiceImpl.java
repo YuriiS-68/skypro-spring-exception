@@ -20,9 +20,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(String firstName, String lastName) {
-        if (!employees.containsKey(getKey(firstName, lastName))) {
+        String key = getKey(firstName, lastName);
+
+        if (!employees.containsKey(key)) {
             Employee newEmployee = new Employee(firstName, lastName);
-            employees.put(getKey(firstName, lastName), newEmployee);
+            employees.put(key, newEmployee);
             return newEmployee;
         } else {
             throw new EmployeeAlreadyExistException();
@@ -31,8 +33,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void delEmployee(String firstName, String lastName) {
-        if (employees.containsKey(getKey(firstName, lastName))) {
-            employees.remove(getKey(firstName, lastName));
+        String key = getKey(firstName, lastName);
+
+        if (employees.containsKey(key)) {
+            employees.remove(key);
         } else {
             throw new NoExistEmployeeException();
         }
