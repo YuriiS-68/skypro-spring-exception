@@ -13,6 +13,7 @@ import java.util.Map;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final Map<String, Employee> employees;
+    private final StringBuilder key = new StringBuilder();
 
     public EmployeeServiceImpl() {
         employees = new HashMap<>();
@@ -20,10 +21,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(String firstName, String lastName) {
-        String key = firstName + lastName;
-        if (!employees.containsKey(key)) {
+        if (!employees.containsKey(getKey(firstName, lastName))) {
             Employee newEmployee = new Employee(firstName, lastName);
-            employees.put(key,newEmployee);
+            employees.put(getKey(firstName, lastName), newEmployee);
             return newEmployee;
         } else {
             throw new EmployeeAlreadyExistException();
@@ -32,9 +32,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void delEmployee(String firstName, String lastName) {
-        String key = firstName + lastName;
-        if (employees.containsKey(key)) {
-            employees.remove(key, new Employee(firstName, lastName));
+        if (employees.containsKey(getKey(firstName, lastName))) {
+            employees.remove(getKey(firstName, lastName));
         } else {
             throw new NoExistEmployeeException();
         }
@@ -42,9 +41,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
-        String key = firstName + lastName;
-        if (employees.containsKey(key)){
-            return employees.get(key);
+        if (employees.containsKey(getKey(firstName, lastName))){
+            return employees.get(getKey(firstName, lastName));
         } else {
             throw new NoExistEmployeeException();
         }
@@ -53,5 +51,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Collection<Employee> getEmployeesList() {
         return employees.values();
+    }
+
+    private String getKey(String firstName, String lastName){
+        return key.append(firstName).append(lastName).toString();
     }
 }
