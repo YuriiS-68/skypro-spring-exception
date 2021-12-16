@@ -13,7 +13,6 @@ import java.util.Map;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final Map<String, Employee> employees;
-    private final StringBuilder key = new StringBuilder();
 
     public EmployeeServiceImpl() {
         employees = new HashMap<>();
@@ -54,6 +53,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     private String getKey(String firstName, String lastName){
-        return key.append(firstName).append(lastName).toString();
+        return firstName + lastName;
     }
 }
