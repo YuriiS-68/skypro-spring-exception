@@ -18,11 +18,13 @@ public class EmployeeController {
 
     @GetMapping("/add")
     public String addEmployee(@RequestParam(value = "firstName", required = false) String firstName,
-                              @RequestParam(value = "lastName", required = false) String lastName){
+                              @RequestParam(value = "lastName", required = false) String lastName,
+                              @RequestParam(value = "departmentId", required = false) Integer department,
+                              @RequestParam(value = "salary", required = false) Double salary){
         if (firstName == null || lastName == null){
             throw new BadParamException();
         }
-        employeeService.addEmployee(firstName, lastName);
+        employeeService.addEmployee(firstName, lastName, department, salary);
         return "Employee: " + firstName + " " + lastName  + " added successfully.";
     }
 

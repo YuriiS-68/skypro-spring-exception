@@ -19,11 +19,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee addEmployee(String firstName, String lastName) {
+    public Employee addEmployee(String firstName, String lastName, Integer numberDepartment, Double salary) {
         String key = getKey(firstName, lastName);
 
         if (!employees.containsKey(key)) {
-            Employee newEmployee = new Employee(firstName, lastName);
+            Employee newEmployee = new Employee(firstName, lastName, numberDepartment, salary);
             employees.put(key, newEmployee);
             return newEmployee;
         } else {
