@@ -9,6 +9,8 @@ import pro.sky.java.course2.skyprospringexception.model.Employee;
 import pro.sky.java.course2.skyprospringexception.service.impl.DepartmentServiceImpl;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/departments")
@@ -44,7 +46,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/all")
-    public Collection<Employee> printEmployees(){
+    public Map<Integer, List<Employee>> printEmployees(){
         return departmentService.printInfoEmployees();
     }
 }

@@ -3,11 +3,15 @@ package pro.sky.java.course2.skyprospringexception.service;
 import pro.sky.java.course2.skyprospringexception.model.Employee;
 
 import java.util.Collection;
-import java.util.Optional;
+import java.util.List;
+import java.util.Map;
 
 public interface DepartmentService {
-    Optional<Employee> getEmployeeMinSalaryByDepartment(Integer numberDepartment);
-    Optional<Employee> getEmployeeMaxSalaryByDepartment(Integer numberDepartment);
+    Employee getEmployeeMinSalaryByDepartment(Integer numberDepartment);
+
+    Employee getEmployeeMaxSalaryByDepartment(Integer numberDepartment);
+
     Collection<Employee> printInfoByDepartment(Integer numberDepartment);
-    Collection<Employee> printInfoEmployees();
+
+    Map<Integer, List<Employee>> printInfoEmployees();
 }

@@ -1,6 +1,7 @@
 package pro.sky.java.course2.skyprospringexception.service.impl;
 
 import org.springframework.stereotype.Service;
+import pro.sky.java.course2.skyprospringexception.exception.NoExistEmployeeException;
 import pro.sky.java.course2.skyprospringexception.model.Employee;
 import pro.sky.java.course2.skyprospringexception.service.DepartmentService;
 
@@ -15,16 +16,18 @@ public class DepartmentServiceImpl implements DepartmentService {
         this.employeeService = employeeService;
     }
 
-    public Optional<Employee> getEmployeeMinSalaryByDepartment(Integer numberDepartment){
+    public Employee getEmployeeMinSalaryByDepartment(Integer numberDepartment){
         return employeeService.getEmployeesList().stream()
                 .filter(employee -> Objects.equals(employee.getDepartment(), numberDepartment))
-                .min(Comparator.comparingDouble(Employee::getSalary));
+                .min(Comparator.comparingDouble(Employee::getSalary))
+                .orElseThrow(NoExistEmployeeException::new);
     }
 
-    public Optional<Employee> getEmployeeMaxSalaryByDepartment(Integer numberDepartment){
+    public Employee getEmployeeMaxSalaryByDepartment(Integer numberDepartment){
         return employeeService.getEmployeesList().stream()
                 .filter(employee -> Objects.equals(employee.getDepartment(), numberDepartment))
-                .max(Comparator.comparingDouble((Employee::getSalary)));
+                .max(Comparator.comparingDouble(Employee::getSalary))
+                .orElseThrow(NoExistEmployeeException::new);
     }
 
     public Collection<Employee> printInfoByDepartment(Integer numberDepartment) {
@@ -33,7 +36,8 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .collect(Collectors.toList());
     }
 
-    public Collection<Employee> printInfoEmployees() {
-        return new ArrayList<>(employeeService.getEmployeesList());
+    public Map<Integer, List<Employee>> printInfoEmployees() {
+        return employeeService.getEmployeesList().stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment));
     }
 }
