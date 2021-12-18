@@ -1,6 +1,7 @@
 package pro.sky.java.course2.skyprospringexception.service.impl;
 
 import org.springframework.stereotype.Service;
+import pro.sky.java.course2.skyprospringexception.exception.BadParamException;
 import pro.sky.java.course2.skyprospringexception.exception.EmployeeAlreadyExistException;
 import pro.sky.java.course2.skyprospringexception.exception.NoExistEmployeeException;
 import pro.sky.java.course2.skyprospringexception.model.Employee;
@@ -20,6 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(String firstName, String lastName, Integer numberDepartment, Double salary) {
+        checkParams(firstName, lastName);
         String key = getKey(firstName, lastName);
 
         if (!employees.containsKey(key)) {
@@ -33,23 +35,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void delEmployee(String firstName, String lastName) {
+        checkParams(firstName, lastName);
         String key = getKey(firstName, lastName);
 
         if (employees.containsKey(key)) {
             employees.remove(key);
         } else {
-            throw new NoExistEmployeeException();
+            throw new NoExistEmployeeException("Employee " + firstName + " " + lastName + " is not exist.");
         }
     }
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
+        checkParams(firstName, lastName);
         Employee foundEmployee = employees.get(getKey(firstName, lastName));
 
         if (foundEmployee != null){
             return foundEmployee;
         } else {
-            throw new NoExistEmployeeException();
+            throw new NoExistEmployeeException("Employee " + firstName + " " + lastName + " is not found.");
         }
     }
 
@@ -60,5 +64,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private String getKey(String firstName, String lastName){
         return firstName + lastName;
+    }
+
+    private void checkParams(String firstName, String lastName){
+        if (firstName == null || lastName == null){
+            throw new BadParamException();
+        }
     }
 }

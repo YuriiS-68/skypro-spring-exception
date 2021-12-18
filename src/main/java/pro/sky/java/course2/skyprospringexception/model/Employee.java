@@ -21,6 +21,10 @@ public class Employee {
         this.salary = salary;
     }
 
+    public boolean isInDepartment(Integer department){
+        return this.department.equals(department);
+    }
+
     public Integer getDepartment() {
         return department;
     }

@@ -1,7 +1,6 @@
 package pro.sky.java.course2.skyprospringexception.controller;
 
 import org.springframework.web.bind.annotation.*;
-import pro.sky.java.course2.skyprospringexception.exception.BadParamException;
 import pro.sky.java.course2.skyprospringexception.model.Employee;
 import pro.sky.java.course2.skyprospringexception.service.impl.EmployeeServiceImpl;
 
@@ -17,33 +16,24 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public String addEmployee(@RequestParam(value = "firstName", required = false) String firstName,
-                              @RequestParam(value = "lastName", required = false) String lastName,
+    public String addEmployee(@RequestParam(value = "firstName") String firstName,
+                              @RequestParam(value = "lastName") String lastName,
                               @RequestParam(value = "departmentId", required = false) Integer department,
-                              @RequestParam(value = "salary", required = false) Double salary){
-        if (firstName == null || lastName == null){
-            throw new BadParamException();
-        }
+                              @RequestParam(required = false) Double salary){
         employeeService.addEmployee(firstName, lastName, department, salary);
         return "Employee: " + firstName + " " + lastName  + " added successfully.";
     }
 
     @GetMapping("/remove")
-    public String delEmployee(@RequestParam(value = "firstName", required = false) String firstName,
-                              @RequestParam(value = "lastName", required = false) String lastName){
-        if (firstName == null || lastName == null){
-            throw new BadParamException();
-        }
+    public String delEmployee(@RequestParam(value = "firstName") String firstName,
+                              @RequestParam(value = "lastName") String lastName){
         employeeService.delEmployee(firstName, lastName);
         return "Employee: " + firstName + " " +  lastName  + " deleted successfully.";
     }
 
     @GetMapping("/find")
-    public String findEmployee(@RequestParam(value = "firstName", required = false) String firstName,
-                              @RequestParam(value = "lastName", required = false) String lastName){
-        if (firstName == null || lastName == null){
-            throw new BadParamException();
-        }
+    public String findEmployee(@RequestParam(value = "firstName") String firstName,
+                              @RequestParam(value = "lastName") String lastName){
         return employeeService.findEmployee(firstName, lastName)  + " found successfully.";
     }
 

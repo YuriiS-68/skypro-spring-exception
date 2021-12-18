@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pro.sky.java.course2.skyprospringexception.exception.BadParamException;
 import pro.sky.java.course2.skyprospringexception.model.Employee;
 import pro.sky.java.course2.skyprospringexception.service.impl.DepartmentServiceImpl;
 
@@ -23,25 +22,16 @@ public class DepartmentController {
 
     @GetMapping("/min-salary")
     public String minSalaryByDepartment(@RequestParam(value = "departmentId", required = false) Integer department){
-        if (department == null){
-            throw new BadParamException();
-        }
         return departmentService.getEmployeeMinSalaryByDepartment(department).toString();
     }
 
     @GetMapping("/max-salary")
     public String maxSalaryByDepartment(@RequestParam(value = "departmentId", required = false) Integer department){
-        if (department == null){
-            throw new BadParamException();
-        }
         return departmentService.getEmployeeMaxSalaryByDepartment(department).toString();
     }
 
-    @GetMapping("/all-department")
+    @GetMapping(value = "/all", params = {"departmentId"})
     public Collection<Employee> printEmployeesByDepartment(@RequestParam(value = "departmentId", required = false) Integer department){
-        if (department == null){
-            throw new BadParamException();
-        }
         return departmentService.printInfoByDepartment(department);
     }
 
