@@ -44,9 +44,11 @@ public class DepartmentServiceImpl implements DepartmentService {
             throw new BadParamException();
         }
         return employeeService.getEmployeesList().stream()
-                .filter(employee -> employee.isInDepartment(numberDepartment)) //при вводе номера департамента, который
-                //не существует, выдаёт пустой лист, а не ошибку. Не пойму как это исправить
-                .collect(Collectors.toList());
+                .filter(employee -> employee.isInDepartment(numberDepartment))
+                .collect(Collectors.collectingAndThen(Collectors.toList(), employees -> {
+                    if (employees.isEmpty()) throw new BadParamException("Department under " + numberDepartment + " is not exist.");
+                    return employees;
+                }));
     }
 
     public Map<Integer, List<Employee>> printInfoEmployees() {
