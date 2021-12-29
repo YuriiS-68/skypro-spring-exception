@@ -6,6 +6,7 @@ import pro.sky.java.course2.skyprospringexception.exception.EmployeeAlreadyExist
 import pro.sky.java.course2.skyprospringexception.exception.NoExistEmployeeException;
 import pro.sky.java.course2.skyprospringexception.model.Employee;
 import pro.sky.java.course2.skyprospringexception.service.EmployeeService;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,7 +26,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         String key = getKey(firstName, lastName);
 
         if (!employees.containsKey(key)) {
-            Employee newEmployee = new Employee(firstName, lastName, numberDepartment, salary);
+            Employee newEmployee = new Employee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName),
+                    numberDepartment, salary);
             employees.put(key, newEmployee);
             return newEmployee;
         } else {
@@ -68,6 +70,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private void checkParams(String firstName, String lastName){
         if (firstName == null || lastName == null){
+            throw new BadParamException();
+        }
+        if (!StringUtils.isAlpha(firstName.trim()) || !StringUtils.isAlpha(lastName.trim())){
             throw new BadParamException();
         }
     }
