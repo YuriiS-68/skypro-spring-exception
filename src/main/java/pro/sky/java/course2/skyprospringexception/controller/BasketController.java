@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sky.java.course2.skyprospringexception.service.BasketService;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,7 +25,7 @@ public class BasketController {
     }
 
     @GetMapping("/add")
-    public String addProduct(@RequestParam(value = "id") ArrayList<Integer> idOfItems){
+    public String addProduct(@RequestParam(value = "id") List<Integer> idOfItems){
         basketService.putItemsInBasket(idOfItems);
         return "List added is success";
     }

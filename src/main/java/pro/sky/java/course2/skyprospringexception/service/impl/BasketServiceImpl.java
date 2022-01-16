@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import pro.sky.java.course2.skyprospringexception.model.Basket;
 import pro.sky.java.course2.skyprospringexception.service.BasketService;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -17,20 +17,12 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public void putItemsInBasket(ArrayList<Integer> idOfItems) {
-        ArrayList<Integer> items = new ArrayList<>(basket.getNameOfItems());
-
-        for (Integer idItem : idOfItems){
-            if (basket.getProducts().containsKey(idItem)){
-                basket.getProducts().put(idItem, items.get(idItem) + 1);
-            } else {
-                basket.getProducts().put(idItem, 1);
-            }
-        }
+    public void putItemsInBasket(List<Integer> idOfItems) {
+        basket.putItems(idOfItems);
     }
 
     @Override
     public Map<Integer, Integer> getItems() {
-        return basket.getProducts();
+        return basket.getItemsByCount();
     }
 }
